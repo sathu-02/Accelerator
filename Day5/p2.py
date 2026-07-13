@@ -1,0 +1,148 @@
+"""
+
+Problem Statement:
+
+A cricket analytics company records runs scored on each ball.
+
+Generate the cumulative score after every ball using a generator.
+
+Requirements:
+1. Use yield.
+2. Maintain running total.
+3. Generate score after each ball.
+
+Input Format:
+Number of Balls
+
+Runs scored on each ball
+
+Output Format:
+Display cumulative scores.
+
+Sample Input:
+6
+1
+4
+0
+2
+6
+1
+
+Sample Output:
+1
+5
+5
+7
+13
+14
+
+
+case=1
+input=6
+1
+4
+0
+2
+6
+1
+
+output=
+1
+5
+5
+7
+13
+14
+
+case=2
+input=5
+2
+2
+2
+2
+2
+
+output=
+2
+4
+6
+8
+10
+
+case=3
+input=4
+6
+6
+6
+6
+
+output=
+6
+12
+18
+24
+
+case=4
+input=3
+0
+0
+0
+
+output=
+0
+0
+0
+
+case=5
+input=1
+4
+
+output=
+4
+
+case=6
+input=0
+
+output=
+Invalid Number of Balls
+
+case=7
+input=-2
+
+output=
+Invalid Number of Balls
+
+case=8
+input=3
+4
+-1
+2
+
+output=
+Invalid Runs
+"""
+class InvalidBalls(Exception):
+    pass
+class InvalidRuns(Exception):
+    pass
+
+def generate(l,score):
+    #scores=[]
+    for i in l:
+        score+=i
+        #scores.append(score)
+        yield score
+    
+try:        
+    n=int(input())
+    if n<=0:
+        raise InvalidBalls("Invalid Number of Balls")
+    l=[int(input()) for i in range(n)]
+    for i in l:
+        if i<0:
+            raise InvalidRuns("Invalid Runs")
+
+    for score in generate(l,0):
+        print(score)
+except Exception as e:
+    print(e)
